@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  sa-logic:
+    image: sentiment-analysis-logic
+    build:
+      context: ./sa-logic
+    container_name: sa-logic
+    ports:
+      - ${SA_LOGIC_PORT}:5000
+    networks:
+      - default
+
+  sa-web:
+    image: sentiment-analysis-web
+    build:
+      context: ./sa-webapp
+    container_name: sa-web
+    environment:
+      - SA_LOGIC_API_URL=${SA_LOGIC_API_URL}:5000
+    ports:
+      - ${SA_WEBAPP_PORT}:8080
+    networks:
+      - default
+    profiles:
+      - delayed
+
+  sa-frontend-prod:
+    image: sentiment-analysis-frontend
+    build:
+      context: ./sa-frontend
+      target: prod
+    container_name: sa-frontend-prod
+    ports:
+      - ${SA_FRONTEND_PROD_PORT}:80
+    networks:
+      - default
+    profiles:
+      - prod
+
+  sa-frontend-dev:
+    image: sentiment-analysis-frontend
+    build:
+      context: ./sa-frontend
+      target: dev
+    container_name: sa-frontend-dev
+    volumes:
+      - ./sa-frontend:/app
+      - /app/node_modules
+    ports:
+      - ${SA_FRONTEND_PORT}:3000
+    networks:
+      - default
+    profiles:
+      - dev
+
+networks:
+  default:
+      name: sentiment-analysis-network
