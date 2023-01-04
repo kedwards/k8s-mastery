@@ -44,6 +44,20 @@ services:
     networks:
       - default
 
+  sa-feedback:
+    image: sentiment-analysis-feedback
+    build:
+      context: ./sa-feedback
+    container_name: sa-feedback
+    ports:
+      - "9000:80"
+    environment:
+      - DATABASE_DIR=/usr/db
+    volumes:
+      - "./sa-feedback/Database:/usr/db"
+    networks:
+      - default
+
 networks:
   default:
     name: sentiment-analysis-network

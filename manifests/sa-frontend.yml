@@ -48,4 +48,4 @@ spec:
     targetPort: 80
   selector:
     app: sa-frontend
-  type: NodePort
+  # type: NodePort
