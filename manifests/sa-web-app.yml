@@ -22,7 +22,7 @@ spec:
         app: sa-web-app
     spec:
       containers:
-      - image: kevinedwards/sentiment-analysis-web-app:5.0.0
+      - image: kevinedwards/sentiment-analysis-web-app:v1.0.0
         imagePullPolicy: Always
         name: sa-web-app
         env:
@@ -30,17 +30,25 @@ spec:
             value: "http://sa-logic"
         ports:
           - containerPort: 8080
-
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 500Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: sa-web-app-lb
+  labels:
+    app: sa-web-app
 spec:
-  type: LoadBalancer
   ports:
   - port: 80
     protocol: TCP
     targetPort: 8080
   selector:
     app: sa-web-app
+  type: NodePort

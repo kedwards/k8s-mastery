@@ -1,55 +1,64 @@
 ## Required Prerequisites
-```
-sudo apt-get install openjdk-8-jdk
-```
+
+` sudo apt-get install openjdk-8-jdk `
 
 ## Check versions
-```
-update-java-alternatives --list
-```
+
+` update-java-alternatives --list `
+
 ## Set Required jdk version
-sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64
+
+` sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64 `
 
 ## Packaging the application
-` $ mvn install`
+
+` mvn install -f src/ `
 
 ## Running the application
-` $ java -jar sentiment-analysis-web-0.0.1-SNAPSHOT.jar --sa.logic.api.url=http://localhost:5000 `
+
+```
+java -jar \
+  src/target/sentiment-analysis-web-0.0.1-SNAPSHOT.jar \
+  --sa.logic.api.url=http://localhost:5000
+```
+
+## Check Health
+
+` curl -X GET http://localhost:8080/testHealth `
 
 ## Building the container
-` $ docker build -f Dockerfile -t $DOCKER_USER_ID/sentiment-analysis-web-app . `
+
+` docker build -t sentiment-analysis-web-app . `
 
 ## Running the container
-```
-$ docker run -d -p 8080:8080 -e SA_LOGIC_API_URL='http://<container_ip or docker machine ip>:5000' $DOCKER_USER_ID/sentiment-analysis-web-app
-```
 
-#### Native docker support needs the Container IP
-CONTAINER_IP: To forward messages to the sa-logic container we need to get  its IP. To do so execute:
+###  Container IP
 
-` $ docker container list`
+To forward messages to the sa-logic container we need to get its IP. To do so execute:
+
+` docker container list `
 
 Copy the id of sa-logic container and execute:
 
-` $ docker inspect <container_id> `
+` docker inspect <container_id> `
 
-The Containers IP address is found under the property NetworkSettings.IPAddress, use it in the RUN command.
+The Containers IP address is found under the property NetworkSettings.IPAddress, we can find the ip using the following command:
 
-#### Docker Machine on a VM
-Get Docker Machine IP by executing:
+` docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container_id> `
 
-` $ docker-machine ip `
 
-Use this one in the command.
-
+```
+export SA_LOGIC_API_URL="http://$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps | grep 'sentiment-analysis-logic' | awk '{ print $1 }')):5000"
+echo $SA_LOGIC_API_URL
+docker run -d \
+  -p 8080:8080 \
+  -e SA_LOGIC_API_URL=$SA_LOGIC_API_URL \
+  sentiment-analysis-web-app
+```
 
 ## Pushing the container
-` $ docker push $DOCKER_USER_ID/sentiment-analysis-web-app `
-
-## Run Command
 
 ```
-docker run -d -p 8080:8080 -e SA_LOGIC_API_URL='http://localhost:5000' $DOCKER_USER_ID/sentiment-analysis-web-app
+export DOCKER_USER_ID=
+docker push $DOCKER_USER_ID/sentiment-analysis-web-app
 ```
-
-docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' sa-lo

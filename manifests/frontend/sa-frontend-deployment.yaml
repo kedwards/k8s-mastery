@@ -21,8 +21,15 @@ spec:
         app: sa-frontend
     spec:
       containers:
-        - image: kevinedwards/sentiment-analysis-frontend:5.0.0
+        - image: kevinedwards/sentiment-analysis-frontend:1.0.0
           imagePullPolicy: Always
           name: sa-frontend
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi

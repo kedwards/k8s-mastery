@@ -22,22 +22,30 @@ spec:
         app: sa-frontend
     spec:
       containers:
-        - image: kevinedwards/sentiment-analysis-frontend:5.0.0
+        - image: kevinedwards/sentiment-analysis-frontend:v1.0.0
           imagePullPolicy: Always
           name: sa-frontend
           ports:
             - containerPort: 80
-
+          resources:
+            limits:
+              cpu: 150m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: sa-frontend-lb
+  labels:
+    app: sa-frontend
 spec:
-  type: LoadBalancer
   ports:
   - port: 80
     protocol: TCP
     targetPort: 80
   selector:
     app: sa-frontend
+  type: NodePort

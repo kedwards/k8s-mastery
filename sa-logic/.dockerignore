@@ -1,6 +1,3 @@
-**/build
-**/node_modules
 .dockerignore
 Dockerfile
-Makefile
 README.md

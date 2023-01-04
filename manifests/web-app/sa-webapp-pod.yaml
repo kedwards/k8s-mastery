@@ -6,8 +6,15 @@ metadata:
     app: sa-web-app
 spec:
   containers:
-    - image: kevinedwards/sentiment-analysis-web-app:5.0.0
+    - image: kevinedwards/sentiment-analysis-web-app:1.0.0
       imagePullPolicy: Always
       name: sa-logic
       ports:
         - containerPort: 5000
+      resources:
+        requests:
+          cpu: 300m
+          memory: 256Mi
+        limits:
+          cpu: 500m
+          memory: 384Mi

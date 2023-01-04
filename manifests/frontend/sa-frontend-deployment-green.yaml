@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sa-logic
+  name: sa-frontend
   labels:
-    app: sa-logic
+    app: sa-frontend
 spec:
   selector:
     matchLabels:
-      app: sa-logic
+      app: sa-frontend
   replicas: 2
   minReadySeconds: 15
   strategy:
@@ -18,18 +18,18 @@ spec:
   template:
     metadata:
       labels:
-        app: sa-logic
+        app: sa-frontend
     spec:
       containers:
-        - image: kevinedwards/sentiment-analysis-logic:5.0.0
+        - image: kevinedwards/sentiment-analysis-frontend:2.0.0
           imagePullPolicy: Always
-          name: sa-logic
+          name: sa-frontend
           ports:
-            - containerPort: 5000
+            - containerPort: 80
           resources:
             requests:
-              cpu: 300m
-              memory: 256Mi
+              cpu: 100m
+              memory: 128Mi
             limits:
               cpu: 500m
-              memory: 384Mi
+              memory: 256Mi

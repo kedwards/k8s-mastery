@@ -22,17 +22,25 @@ spec:
         app: sa-logic
     spec:
       containers:
-        - image: kevinedwards/sentiment-analysis-logic:5.0.0
+        - image: kevinedwards/sentiment-analysis-logic:v1.0.0
           imagePullPolicy: Always
           name: sa-logic
           ports:
             - containerPort: 5000
-
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 400m
+              memory: 384Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: sa-logic
+  labels:
+    app: sa-logic
 spec:
   ports:
     - port: 80

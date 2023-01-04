@@ -23,8 +23,8 @@ public class SentimentController {
     }
 
     @GetMapping("/testHealth")
-    public void testHealth() {
+    public @ResponseBody String testHealth() {
+        System.out.println("Health check");
+        return "Healthy";
     }
 }
-
-

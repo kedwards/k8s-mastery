@@ -17,43 +17,33 @@ services:
       context: ./sa-webapp
     container_name: sa-web
     environment:
-      - SA_LOGIC_API_URL=${SA_LOGIC_API_URL}:5000
+      - SA_LOGIC_API_URL=${SA_LOGIC_API_URL}:${SA_LOGIC_PORT}
     ports:
       - ${SA_WEBAPP_PORT}:8080
     networks:
       - default
-    profiles:
-      - delayed
+    depends_on:
+      - sa-logic
 
-  sa-frontend-prod:
+  sa-frontend:
     image: sentiment-analysis-frontend
     build:
       context: ./sa-frontend
-      target: prod
-    container_name: sa-frontend-prod
-    ports:
-      - ${SA_FRONTEND_PROD_PORT}:80
-    networks:
-      - default
-    profiles:
-      - prod
-
-  sa-frontend-dev:
-    image: sentiment-analysis-frontend
-    build:
-      context: ./sa-frontend
-      target: dev
-    container_name: sa-frontend-dev
+    container_name: sa-frontend
+    stdin_open: true
+    environment:
+      - NODE_ENV=development
+      - WEB_APP_API_URL=http://sa-web:8000
     volumes:
-      - ./sa-frontend:/app
+      - ./sa-frontend/src:/app
       - /app/node_modules
     ports:
       - ${SA_FRONTEND_PORT}:3000
+    depends_on:
+      - sa-web
     networks:
       - default
-    profiles:
-      - dev
 
 networks:
   default:
-      name: sentiment-analysis-network
+    name: sentiment-analysis-network

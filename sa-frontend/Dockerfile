@@ -10,18 +10,17 @@ RUN npm install
 
 COPY src .
 
+# # dev
+# FROM base AS dev
 
-# development
-FROM base AS dev
+# EXPOSE 3000
 
-CMD ["npm", "start"]
-
+# CMD ["npm", "start"]
 
 # build
 FROM base AS build
 
 RUN npm run build
-
 
 # prod
 FROM nginx:stable-alpine AS prod
@@ -36,9 +35,12 @@ LABEL com.kevinedwards.rtls-web.version=$VERSION
 LABEL com.kevinedwards.rtls-web.vendor="Kevin Edwards"
 LABEL com.kevinedwards.rtls-web.authors="Kevin Edwards <kedwards@kevinedwards.com"
 
-COPY --from=build /app/build /usr/share/nginx/html
+ARG WEB_APP_API_URL=http://localhost:8080
+ENV WEB_APP_API_URL=${WEB_APP_API_URL}
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY default.conf.template /etc/nginx/templates/
+
+COPY --from=build /app/build /usr/share/nginx/html
 
 EXPOSE 80
 
