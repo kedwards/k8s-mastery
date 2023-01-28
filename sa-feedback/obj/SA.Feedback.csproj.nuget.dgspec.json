@@ -1,0 +1,79 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/kedwards/dev/livITy/k8s-mastery/sa-feedback/SA.Feedback.csproj": {}
+  },
+  "projects": {
+    "/home/kedwards/dev/livITy/k8s-mastery/sa-feedback/SA.Feedback.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/kedwards/dev/livITy/k8s-mastery/sa-feedback/SA.Feedback.csproj",
+        "projectName": "SA.Feedback",
+        "projectPath": "/home/kedwards/dev/livITy/k8s-mastery/sa-feedback/SA.Feedback.csproj",
+        "packagesPath": "/home/kedwards/.nuget/packages/",
+        "outputPath": "/home/kedwards/dev/livITy/k8s-mastery/sa-feedback/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/kedwards/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "targetAlias": "netcoreapp2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "targetAlias": "netcoreapp2.1",
+          "dependencies": {
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.1, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[2.1.4, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.101/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

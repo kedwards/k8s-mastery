@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = SA.Feedback
+build_property.ProjectDir = /home/kedwards/dev/livITy/k8s-mastery/sa-feedback/
