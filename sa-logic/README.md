@@ -37,3 +37,12 @@ Request body:
 ```
 $ docker push $DOCKER_USER_ID/sentiment-analysis-logic
 ```
+
+## Example
+❯ curl -X POST http://localhost:5050/analyse/sentiment --json '{"sentence": "I love you"}'
+{
+  "polarity": 0.5,
+  "sentence": "I love you"
+}
+
+

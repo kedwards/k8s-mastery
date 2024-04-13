@@ -5,18 +5,10 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import Polarity from "./components/Polarity";
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {green500} from 'material-ui/styles/colors';
 
 const style = {
     marginLeft: 12,
 };
-
-const muiTheme = getMuiTheme({
-  raisedButton: {
-    color: green500,
-  },
-});
 
 class App extends Component {
     constructor(props) {
@@ -28,7 +20,7 @@ class App extends Component {
     };
 
     analyzeSentence() {
-        fetch('http://192.168.49.2:31929/sentiment', {
+        fetch('http://localhost:8080/sentiment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -51,7 +43,7 @@ class App extends Component {
             null;
 
         return (
-            <MuiThemeProvider muiTheme={muiTheme}>
+            <MuiThemeProvider>
                 <div className="centerize">
                     <Paper zDepth={1} className="content">
                         <h2>Sentiment Analyser</h2>
