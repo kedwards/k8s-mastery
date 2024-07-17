@@ -1,5 +1,7 @@
 ## Required Prerequisites
 
+### Debian/ubuntu 
+
 ` sudo apt-get install openjdk-8-jdk `
 
 ## Check versions
@@ -9,6 +11,9 @@
 ## Set Required jdk version
 
 ` sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64 `
+
+### Arch
+` sudo pacman -S jdk8-openjdk `
 
 ## Packaging the application
 
@@ -28,13 +33,13 @@ java -jar \
 
 ## Building the container
 
-` docker build -t sentiment-analysis-web-app . `
+` docker build -t ${DOCKER_USER_ID}/sentiment-analysis-web-app:v1.0.0 . `
 
 ## Running the container
 
 ###  Container IP
 
-To forward messages to the sa-logic container we need to get its IP. To do so execute:
+the webapp is required to forward messages to the sa-logic container, for this we need to get the IP of the sa-logic container. To do so execute:
 
 ` docker container list `
 

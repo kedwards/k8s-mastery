@@ -22,7 +22,10 @@ spec:
         app: sa-frontend
     spec:
       containers:
-        - image: kevinedwards/sentiment-analysis-frontend:v1.0.0
+        # - image: kevinedwards/sentiment-analysis-frontend:v1.0.0
+        # - image: kevinedwards/sentiment-analysis-frontend:v1.0.0-green
+        # - image: kevinedwards/sentiment-analysis-frontend:minikube-white
+        - image: kevinedwards/sentiment-analysis-frontend:minikube-green
           imagePullPolicy: Always
           name: sa-frontend
           ports:
@@ -42,10 +45,11 @@ metadata:
   labels:
     app: sa-frontend
 spec:
+  type: LoadBalancer
   ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
+    - port: 80
+      protocol: TCP
+      targetPort: 80
   selector:
     app: sa-frontend
   # type: NodePort
